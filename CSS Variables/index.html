@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Playing with CSS Variables</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!--Setting Options-->
+<div class="form-group d-none">
+	<div class="form-control">
+		<h6>Change Image Size:</h6>
+		<input type="range" name="imgHeight" min="350" max="500" data-suffix="px">
+	</div>
+	<div class="form-control">
+		<h6>Change Accent Color:</h6>
+		<input type="color" name="accentColor" value="#ffda00">
+	</div>
+	<div class="form-control">
+		<h6>Change Dark Box's Size:</h6>
+		<input type="range" name="box" min="2" max="9" value="3">
+	</div>
+</div>
+<!-- /.form-group -->
+
+<div class="header">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-4 primary-bg">
+				<div class="logo">
+					<img src="img/logo.png" alt="Logo" width="50" height="50">
+					<h3>IndustryM4</h3>
+				</div>
+				<!-- /.logo -->
+			</div>
+			<div class="col-8 accent-bg">
+				<div class="navigation">
+					<ul>
+						<li>
+							<a href="#">
+								<span>Home</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span>Live Demo</span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span>Live Demo Blocks</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="hasBg">
+								<span>Buy Now</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navigation -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.header -->
+
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-4 primary-bg">
+				<div class="flex-box">
+					<figure>
+						<img src="img/figure.jpg" alt="Figure">
+					</figure>
+				</div>
+				<!-- /.flex-box -->
+			</div>
+			<div class="col-8 accent-bg">
+				<button class="btn switch-style-btn" id="switch-style-btn">
+					<img src="img/settings-icon.png" alt="Setting Icon" width="40" height="40">
+				</button>
+				<!-- /.switch-style-btn -->
+				<div class="flex-box">
+					<div class="main-text">
+						<p class="meta">Lorem ipsum dolor sit amet</p>
+						<p class="title">Industry</p>
+						<p class="content">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					</div>
+					<!-- /.main-text -->
+				</div>
+				<!-- /.flex-box -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="primary-bg left-box col-9">
+				<div class="flex-box">
+					<div class="block-text">
+						<p class="meta">Lorem ipsum</p>
+						<p class="title">Industry Efficiency</p>
+						<p class="content">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim
+						                   ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+						                   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim
+						                   ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+						</p>
+					</div>
+					<!-- /.block-text -->
+				</div>
+				<!-- /.flex-box -->
+			</div>
+			<div class="right-box col-3">
+				<div class="flex-box">
+					<div class="block-text">
+						<p class="meta">Lorem ipsum</p>
+						<p class="content">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+						</p>
+					</div>
+					<!-- /.block-text -->
+				</div>
+				<!-- /.flex-box -->
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.main-content -->
+
+<script>
+    const btn = document.getElementById('switch-style-btn');
+    const settingBox = document.querySelector('.form-group');
+    btn.addEventListener('click', function () {
+        if (settingBox.classList.contains('d-flex')) {
+            settingBox.classList.remove('d-flex');
+            settingBox.classList.add('d-none');
+        } else {
+            settingBox.classList.remove('d-none');
+            settingBox.classList.add('d-flex');
+        }
+    });
+
+    function update() {
+        const suffix = this.dataset.suffix || '';
+        document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+
+        if (this.name === 'box') {
+            const rightBox = document.querySelector('.right-box');
+            const leftBox = document.querySelector('.left-box');
+
+            leftBox.classList.remove(leftBox.className.split(' ').pop());
+            leftBox.classList.add(`col-${12 - this.value}`);
+
+            rightBox.classList.remove(rightBox.className.split(' ').pop());
+            rightBox.classList.add(`col-${this.value}`);
+        }
+    }
+
+    const inputs = document.querySelectorAll('.form-control input');
+    inputs.forEach(input => input.addEventListener('change', update));
+</script>
+</body>
+</html>
